@@ -6,11 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+
 public class ProductConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(ProductConfiguration.class);
 
+    /*
     @Bean
     CommandLineRunner initDatabase(ProductRepository repository) {
 
@@ -19,4 +20,5 @@ public class ProductConfiguration {
             log.info("Preloading " + repository.save(new ProductEntity("Coca cola", 12.0)));
         };
     }
+     */
 }

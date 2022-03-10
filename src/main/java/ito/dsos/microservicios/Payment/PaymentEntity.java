@@ -4,31 +4,32 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "payment")
 public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "payment_id")
     private Long paymentID;
 
-    @Column(name = "reference_id", unique = true, nullable = false)
+    @Column(name = "reference_id", unique = true)
     private String referenceID;
 
     @Column(name = "address_cp", length = 5)
     private String address_cp;
 
-    @Column(name = "payment_date", nullable = false)
+    @Column(name = "payment_date")
     private LocalDateTime paymentDate;
 
-    @Column(name = "payment_status", columnDefinition = "P", nullable = false)
+    @Column(name = "payment_status")
     private Character paymentStatus;
 
     @Column(name = "positive_payment_date")
     private LocalDateTime positivePaymentDate;
 
-    @Column(name = "payment_amount", nullable = false, updatable = false)
+    @Column(name = "payment_amount")
     private Double paymentAmount;
 
-    @Column(name = "payment_method", length = 16, updatable = false)
+    @Column(name = "payment_method")
     private String paymentMethod;
 
     @Column(name = "status_delete")
@@ -38,23 +39,40 @@ public class PaymentEntity {
         return statusDelete;
     }
 
+    public void setPaymentID(Long paymentID) {
+        this.paymentID = paymentID;
+    }
+
+    public void setAddress_cp(String address_cp) {
+        this.address_cp = address_cp;
+    }
+
+    public void setPaymentAmount(Double paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
     public PaymentEntity() {
 
     }
 
     public PaymentEntity(String referenceID,
-                         LocalDateTime paymentDate,
                          Double paymentAmount,
                          String paymentMethod) {
         this.referenceID = referenceID;
-        this.paymentDate = paymentDate;
         this.paymentAmount = paymentAmount;
         this.paymentMethod = paymentMethod;
     }
 
-    public PaymentEntity(Character paymentStatus, LocalDateTime positivePaymentDate) {
+    public PaymentEntity(Character paymentStatus) {
         this.paymentStatus = paymentStatus;
-        this.positivePaymentDate = positivePaymentDate;
+    }
+
+    public void setPaymentDate(LocalDateTime paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public String getPaymentMethod() {
