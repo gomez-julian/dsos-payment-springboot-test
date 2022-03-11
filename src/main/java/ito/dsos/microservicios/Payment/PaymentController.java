@@ -33,21 +33,43 @@ public class PaymentController {
 
     @PostMapping("/pay")
     public ResponseEntity<PaymentEntity> postPayment(@ModelAttribute PaymentEntity payment){
-        if(payment == null)
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        payment.setPaymentStatus('P');
-        payment.setPaymentDate(LocalDateTime.now());
-        return new ResponseEntity<>(paymentService.save(payment), HttpStatus.CREATED);
+        try {
+            if (payment == null)
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            payment.setPaymentStatus('P');
+            payment.setPaymentDate(LocalDateTime.now());
+            return new ResponseEntity<>(paymentService.save(payment), HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Transactional
+    @PutMapping("/update/{id}")
+    public ResponseEntity<PaymentEntity> updatePayment(@ModelAttribute PaymentEntity payment,
+                                                       @PathVariable String id){
+        try{
+            PaymentEntity paymentEntity = paymentService.getById(Long.parseLong(id))
+                    .orElseThrow(() -> new IllegalStateException("Error al obtener la compra"));
+            return new ResponseEntity<>(paymentService.updateAll(payment, Long.parseLong(id)),
+                                                                HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Transactional
     @PutMapping("/confirm/{id}")
     public ResponseEntity<PaymentEntity> putPayment(@PathVariable String id){
-        PaymentEntity payment = paymentService.getById(Long.parseLong(id))
-                .orElseThrow(() -> new IllegalStateException("Error al obtener la compra"));
-        payment.setPaymentStatus('C');
-        payment.setPositivePaymentDate(LocalDateTime.now());
-        return new ResponseEntity<>(paymentService.save(payment), HttpStatus.CREATED);
+        try{
+            PaymentEntity payment = paymentService.getById(Long.parseLong(id))
+                    .orElseThrow(() -> new IllegalStateException("Error al obtener la compra"));
+            payment.setPaymentStatus('C');
+            payment.setPositivePaymentDate(LocalDateTime.now());
+            return new ResponseEntity<>(paymentService.save(payment), HttpStatus.CREATED);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/delete/{id}")

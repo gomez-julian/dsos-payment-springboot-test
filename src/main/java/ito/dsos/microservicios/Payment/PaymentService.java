@@ -42,4 +42,9 @@ public class PaymentService {
     public List<PaymentEntity> getAll(){
         return paymentRepository.findAll();
     }
+
+    public PaymentEntity updateAll(PaymentEntity payment, Long id){
+        payment.setPaymentID(id);
+        return paymentRepository.save(payment);
+    }
 }

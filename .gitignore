@@ -10,4 +10,3 @@ HELP.md
 .vscode/
 
 ### Sensitive Data ###
-src/main/resources/application.properties

@@ -11,7 +11,7 @@ public class PaymentEntity {
     @Column(name = "payment_id")
     private Long paymentID;
 
-    @Column(name = "reference_id", unique = true)
+    @Column(name = "reference_id", unique = true, length = 10, nullable = false)
     private String referenceID;
 
     @Column(name = "address_cp", length = 5)
@@ -26,10 +26,10 @@ public class PaymentEntity {
     @Column(name = "positive_payment_date")
     private LocalDateTime positivePaymentDate;
 
-    @Column(name = "payment_amount")
+    @Column(name = "payment_amount", nullable = false)
     private Double paymentAmount;
 
-    @Column(name = "payment_method")
+    @Column(name = "payment_method", length = 16, updatable = false)
     private String paymentMethod;
 
     @Column(name = "status_delete")
