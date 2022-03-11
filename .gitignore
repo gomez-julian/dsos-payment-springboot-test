@@ -9,4 +9,8 @@ HELP.md
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 ### Sensitive Data ###
+=======
+### Sensitive Data ###
+>>>>>>> d8152389f60944e67e882e8bcc05d4728ff5ef40
